@@ -49,95 +49,99 @@ export default function App() {
   }, []);
 
   return (
-    <div className={`container ${accepted ? "romantic-bg" : ""}`}>
-      {/* 
+    <>
+      <div className={`container ${accepted ? "romantic-bg" : ""}`}>
+        {/* 
         To use your own music:
         1. Name your file "song.mp3"
         2. Drag and drop it into the "public" folder of this project
       */}
-      <audio ref={audioRef} loop autoPlay>
-        <source src="song.mp3" type="audio/mp3" />
-      </audio>
+        <audio ref={audioRef} loop autoPlay>
+          <source src="song.mp3" type="audio/mp3" />
+        </audio>
 
-      {!accepted ? (
-        <>
-          <h1>Chinnu 💕</h1>
+        {!accepted ? (
+          <>
+            <h1>Chinnu 💕</h1>
 
-          <div className="image-container">
-            <img src="chinnu_sree.jpg" alt="Us ❤️" />
-            <div className="image-glow"></div>
+            <div className="image-container">
+              <img src="chinnu_sree.jpg" alt="Us ❤️" />
+              <div className="image-glow"></div>
+            </div>
+
+            <h2>Will you walk beside me this Valentine's Day?</h2>
+            <p>
+              In every lifetime, I would still choose you. <br />
+              Even on the days you pretend to be mad at me.
+            </p>
+
+            <div className="buttons">
+              <button className="yes" onClick={handleYes}>
+                Yes, Always 💕
+              </button>
+
+              <button
+                className="no"
+                style={{
+                  top: noPosition.top,
+                  left: noPosition.left,
+                }}
+                onMouseEnter={moveNoButton}
+                onClick={moveNoButton}
+              >
+                No
+              </button>
+            </div>
+          </>
+        ) : (
+          <div className="celebration fade-in">
+            <h1>You made my heart bloom, Chinnu 🌸</h1>
+            <p>
+              You just made me the happiest soul alive 💕 <br />I promise to:
+            </p>
+
+            <ul>
+              <li>🤍 Hold your hand through every storm</li>
+              <li>🫂 Take care of you till my last breath</li>
+              <li>🌙 Be your safe place, always</li>
+              <li>💍 Love you more with every sunrise</li>
+            </ul>
+
+            <h2>Happy Valentine's Day, my love 🌹</h2>
+
+            <p className="forever-line">Forever with you. 💍</p>
           </div>
-
-          <h2>Will you walk beside me this Valentine's Day?</h2>
-          <p>
-            In every lifetime, I would still choose you. <br />
-            Even on the days you pretend to be mad at me.
-          </p>
-
-          <div className="buttons">
-            <button className="yes" onClick={handleYes}>
-              Yes, Always 💕
-            </button>
-
-            <button
-              className="no"
-              style={{
-                top: noPosition.top,
-                left: noPosition.left,
-              }}
-              onMouseEnter={moveNoButton}
-              onClick={moveNoButton}
-            >
-              No
-            </button>
-          </div>
-        </>
-      ) : (
-        <div className="celebration fade-in">
-          <h1>You made my heart bloom, Chinnu 🌸</h1>
-          <p>
-            You just made me the happiest soul alive 💕 <br />I promise to:
-          </p>
-
-          <ul>
-            <li>🤍 Hold your hand through every storm</li>
-            <li>🫂 Take care of you till my last breath</li>
-            <li>🌙 Be your safe place, always</li>
-            <li>💍 Love you more with every sunrise</li>
-          </ul>
-
-          <h2>Happy Valentine's Day, my love 🌹</h2>
-
-          <p className="forever-line">Forever with you. 💍</p>
-        </div>
-      )}
+        )}
+      </div>
 
       <CherryBlossoms accepted={accepted} />
       <GoldenDust accepted={accepted} />
       <Hearts accepted={accepted} />
-    </div>
+    </>
   );
 }
 
 /* ─── Cherry Blossom Petals ─── */
 function CherryBlossoms({ accepted }) {
   const [petals, setPetals] = useState([]);
+  const symbols = ["🌸", "✿", "🩷", "💮", "🌸", "🌸"];
 
   useEffect(() => {
-    const spawnRate = accepted ? 2000 : 800; // Slower on celebration
+    const spawnRate = accepted ? 2000 : 400; // More petals on first page
     const interval = setInterval(() => {
       const petal = {
         id: Date.now() + Math.random(),
         left: Math.random() * 100,
-        duration: Math.random() * 6 + 6,
-        delay: Math.random() * 2,
-        symbol: Math.random() > 0.5 ? "🌸" : "✿",
+        duration: Math.random() * 5 + 5,
+        delay: Math.random() * 1.5,
+        symbol: symbols[Math.floor(Math.random() * symbols.length)],
+        size: Math.random() * 10 + 16,
       };
       setPetals((prev) => [...prev, petal]);
 
       setTimeout(() => {
         setPetals((prev) => prev.slice(1));
-      }, 12000);
+      }, 10000);
     }, spawnRate);
 
     return () => clearInterval(interval);
@@ -153,6 +157,7 @@ function CherryBlossoms({ accepted }) {
             left: `${petal.left}vw`,
             animationDuration: `${petal.duration}s`,
             animationDelay: `${petal.delay}s`,
+            fontSize: `${petal.size}px`,
           }}
         >
           {petal.symbol}
