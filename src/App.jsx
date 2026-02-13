@@ -15,8 +15,26 @@ export default function App() {
 
   const handleYes = () => {
     setAccepted(true);
-    audioRef.current.play();
   };
+
+  useEffect(() => {
+    const attemptPlay = () => {
+      if (audioRef.current) {
+        audioRef.current.play().catch((error) => {
+          console.log("Autoplay prevented:", error);
+        });
+      }
+    };
+
+    attemptPlay();
+    window.addEventListener("click", attemptPlay, { once: true });
+    window.addEventListener("touchstart", attemptPlay, { once: true });
+
+    return () => {
+      window.removeEventListener("click", attemptPlay);
+      window.removeEventListener("touchstart", attemptPlay);
+    };
+  }, []);
 
   return (
     <div className="container">
@@ -25,8 +43,8 @@ export default function App() {
         1. Name your file "song.mp3"
         2. Drag and drop it into the "public" folder of this project
       */}
-      <audio ref={audioRef} loop>
-        <source src="/song.mp3" type="audio/mp3" />
+      <audio ref={audioRef} loop autoPlay>
+        <source src="song.mp3" type="audio/mp3" />
       </audio>
 
       {!accepted ? (
