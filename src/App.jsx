@@ -27,10 +27,6 @@ export default function App() {
       */}
       <audio ref={audioRef} loop>
         <source src="/song.mp3" type="audio/mp3" />
-        <source
-          src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-          type="audio/mp3"
-        />
       </audio>
 
       {!accepted ? (
@@ -54,6 +50,7 @@ export default function App() {
                 left: noPosition.left,
               }}
               onMouseEnter={moveNoButton}
+              onClick={moveNoButton}
             >
               No
             </button>
