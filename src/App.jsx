@@ -7,8 +7,9 @@ export default function App() {
   const audioRef = useRef(null);
 
   const moveNoButton = () => {
-    const newTop = Math.random() * 80 + "%";
-    const newLeft = Math.random() * 80 + "%";
+    // Generate random position within 20% to 80% range to keep it visible on mobile
+    const newTop = Math.random() * 60 + 20 + "%";
+    const newLeft = Math.random() * 60 + 20 + "%";
     setNoPosition({ top: newTop, left: newLeft });
   };
 
@@ -19,11 +20,18 @@ export default function App() {
 
   return (
     <div className="container">
-      <audio
-        ref={audioRef}
-        src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
-        loop
-      />
+      {/* 
+        To use your own music:
+        1. Name your file "song.mp3"
+        2. Drag and drop it into the "public" folder of this project
+      */}
+      <audio ref={audioRef} loop>
+        <source src="/song.mp3" type="audio/mp3" />
+        <source
+          src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"
+          type="audio/mp3"
+        />
+      </audio>
 
       {!accepted ? (
         <>
@@ -47,7 +55,7 @@ export default function App() {
               }}
               onMouseEnter={moveNoButton}
             >
-              No (Try Catch Me 😝)
+              No
             </button>
           </div>
         </>

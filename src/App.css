@@ -84,3 +84,32 @@ button {
     opacity: 0;
   }
 }
+
+/* Mobile Responsiveness */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2em;
+    margin-top: 30px;
+  }
+  h2 {
+    font-size: 1.2em;
+  }
+  p {
+    font-size: 1em;
+    padding: 0 20px;
+  }
+  .buttons {
+    height: 200px;
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 1em;
+    margin: 10px;
+  }
+  .celebration h1 {
+    font-size: 2em;
+  }
+  ul {
+    font-size: 1em;
+  }
+}
